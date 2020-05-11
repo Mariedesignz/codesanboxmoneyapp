@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+   
+  
+    <title>React App</title>
+    <title>
+      Creating a Search Bar using HTML CSS and javascript
+    </title>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+  </head>
+  <body>
+    
+  <div style="background-color: rgb(206, 247, 206);">
+    <h1 style="color:darkgreen">Fiancial Literacy 101</h1>
+    <h2 style="color:rgb(21, 114, 21)"> Your Roadmap to Fiancial Freedom!</h2>
+   
+    <img src="C:\Users\mrs. judkins\Documents\javascript\Tuesdayprocl\photo-money.jpg" alt="coins" class="center">
+  </div>
+<!---- The search bar is to allow users to look up terms in get a definition -->
+  
+    <input id="searchbar" onkeyup="seacrh_terms()" type="text"
+        name="search" placeholder="Search terms..">
+        <button onClick="search()">search</button>
+        <div id="definition"></div>
+<ol id='list'>
+        <li class="terms">Budget</li>
+        <li class="terms">SMART Goals</li>
+        <li class="terms">APR</li>
+        <li class="terms">FICO</li>
+        <li class="terms">Liquid Assets</li>
+        <li class="terms">Credit Counsling</li>
+        <li class="terms">Debt Management Plan</li>
+        <li class="terms">Annuity</li>
+      </ol>
+      <script src="./terms.js"></script>
+<element onclick="myScript"></element>
+  <!---- The Stock ticker provides up-to-date stock informationj in real time -->
+    <div id="root"></div>
+    <div id="ticker"
+    div style="background-color: lightgreen;">
+    <span>Stock Quotes:</span>
+    <span><span>ABC</span>1.543 0.2% </span>
+    <span><span>SDF</span>12.543 -0.74% </span>
+    <span><span>JDF</span>34.543 5.2% </span>
+    <span><span>ERA</span>123.234 1.2% </span>
+    <span><span>DFF</span>20.543 -5.2% </span>
+    <span><span>CBX</span>523.234 0.0% </span>
+    <span><span>IZF</span>89.65 -3.4% </span>
+  </div>
+
+  
+<!--These investment apps are to give infornation on each company. Was unable to find API's-->
+<h2>Investment Apps</h2>
+<h5>Investing is simple and easy. With as little as five dollars you can start investing into your future. Sign up today with one of these apps!</h6>
+<p id="investments"></p>
+<script>
+  let Investments = ["Acorns", "Robin Hood","Stash"];
+  document.getElementById("investments").innerHTML=Investments;
+
+</script>
+<!--the form is supposed to email questions vistors may have and was not able find on the app.--> 
+
+<div id="after_submit"></div>
+<form id="contact_form" action="#" method="POST" enctype="multipart/form-data">
+  <div class="row">
+    <label class="required" for="name">Your Name:</label><br />
+    <input id="name" class="input" name="name" type="text" value="" size="30" /><br />
+    <span id="name_validation" class="error_message"></span>
+  </div>
+  <div class="row">
+    <label class="required" for="email">Your Email:</label><br />
+    <input id="email" class="input" name="email" type="text" value="" size="30" /><br />
+    <span id="email_validation" class="error_message"></span>
+ </div>
+ <link rel="stylesheet" href="form.css" >
+ <div class="row">
+   <label class="requried" for="message">Your Message:</label><br />
+   <textarea id="message" class="input" name="message" rows="7" cols="30"></textarea><br />
+   <span id="message validation" class="error_messaage"></span>
+ </div>
+
+ <input id="submit_button" type="submit" value="Send email" />
+</form>
+
+
+<script>
+ 
+
+
+
+  
+  function search()
+ // Put in a financial word and the api will return the defintion//
+ { 
+   var wordtosearch = document.getElementById("searchbar").value;
+  axios.get('https://dictionaryapi.com/api/v3/references/sd3/json/'+ wordtosearch +'?key=d12cfa5d-ee3f-4023-93c6-0a61afd5a83a')
+    .then(function (response) {
+      document.getElementById("definition").innerHTML = response.data[0].shortdef; 
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+    .then(function () {
+      // always executed
+    }); }
+</script>
+<script>
+  $(function()
+  {
+      function after_form_submitted(data)
+      {
+          if(data.result == 'success')
+          {
+              $('form#reused_form').hide();
+              $('#success_message').show();
+              $('#error_message').hide();
+          }
+          else
+          {
+              $('#error_message').append('<ul></ul>');
+  
+              jQuery.each(data.errors,function(key,val)
+              {
+                  $('#error_message ul').append('<li>'+key+':'+val+'</li>');
+              });
+              $('#success_message').hide();
+              $('#error_message').show();
+  
+              //reverse the response on the button
+              $('button[type="button"]', $form).each(function()
+              {
+                  $btn = $(this);
+                  label = $btn.prop('orig_label');
+                  if(label)
+                  {
+                      $btn.prop('type','submit' );
+                      $btn.text(label);
+                      $btn.prop('orig_label','');
+                  }
+              });
+  
+          }//else
+      }
+  
+    $('#reused_form').submit(function(e)
+        {
+          e.preventDefault();
+  
+          $form = $(this);
+          //show some response on the button
+          $('button[type="submit"]', $form).each(function()
+          {
+              $btn = $(this);
+              $btn.prop('type','button' );
+              $btn.prop('orig_label',$btn.text());
+              $btn.text('Sending ...');
+          });
+  
+  
+                      $.ajax({
+                  type: "POST",
+                  url: 'handler.php',
+                  data: $form.serialize(),
+                  success: after_form_submitted,
+                  dataType: 'json'
+              });
+  
+        });
+  });
+  </script>
+
+
+
+
+
+  </body>
+</html>

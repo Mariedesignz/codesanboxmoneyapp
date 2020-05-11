@@ -1,2 +1,0 @@
-# codesanboxmoneyapp
-Created with CodeSandbox
